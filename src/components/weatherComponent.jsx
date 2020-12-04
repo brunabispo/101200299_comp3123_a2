@@ -5,7 +5,7 @@ import { render } from 'react-dom';
 const Weather = () => {
 
     const [temperature, setTemperature] = useState('');
-    const [city, setCity] = useState('Toronto');
+    const [city, setCity] = useState('');
     const [description, setDescription] = useState('');
     const [name, setName] = useState('');
     const [country, setCountry] = useState('');
@@ -15,8 +15,8 @@ const Weather = () => {
     const [tempMax, setTempMax] = useState('');
     const [pressure, setPressure] = useState('');
     const [humidity, setHumidity] = useState('');
-    const [windSpeed, setWindSpeed] = useState('');
-    const [icon, setIcon] = useState();
+    const [windSpeed, setWindSpeed] = useState('-');
+    const [icon, setIcon] = useState(null);
 
 
     const getWeather = (city) => {
@@ -58,6 +58,7 @@ const Weather = () => {
         <div>
             <br/>
             <input
+                placeholder='Type the city name here'
                 type='text'
                 value={city}
                 onChange={ (e) => setCity(e.target.value)}
@@ -69,20 +70,33 @@ const Weather = () => {
             >Get Weather</button>
             <div>
                 <br/>
-                Date and Time: {convertDate(date)}
-                <br/>
-                {name} - {country}
-                <br/>
-                Current Temperature: {Math.round(temperature * 100) / 100}°C - {description} <br/>
                 <img src={`http://openweathermap.org/img/wn/${icon}@4x.png`}></img><br/>
-                Minimum Temperature: {Math.round(tempMin * 100) / 100}°C<br/>
-                Maximum Temperature: {Math.round(tempMax * 100) / 100}°C<br/>
-                Feels Like: {Math.round(feelsLike * 100) / 100}°C<br/>
-                Pressure: {pressure} hPa<br/>
-                Humidity: {humidity}%<br/>
-                Wind Speed: {windSpeed} <br/>
-
-
+                <table className='center'>
+                    <tr>
+                        <b><td className='colorTable' style = {{textAlign: 'left'}}>
+                            <tr className='light'>Date and Time: </tr>
+                            <tr>City - Country: </tr>
+                            <tr className='light'>Current Temperature: </tr>
+                            <tr>Minimum Temperature: </tr>
+                            <tr className='light'>Maximum Temperature: </tr>
+                            <tr>Feels Like: </tr>
+                            <tr className='light'>Pressure: </tr>
+                            <tr>Humidity: </tr>
+                            <tr className='light'>Wind Speed: </tr>
+                        </td></b>
+                        <td style = {{textAlign: 'right'}}>
+                            <tr className='light'>{convertDate(date)}</tr>
+                            <tr>{name} - {country}</tr>
+                            <tr className='light'>{Math.round(temperature * 100) / 100}°C - {description}</tr>
+                            <tr>{Math.round(tempMin * 100) / 100}°C</tr>
+                            <tr className='light'>{Math.round(tempMax * 100) / 100}°C</tr>
+                            <tr>{Math.round(feelsLike * 100) / 100}°C</tr>
+                            <tr className='light'>{pressure} hPa</tr>
+                            <tr>{humidity}%</tr>
+                            <tr className='light'>{windSpeed} m/s</tr>
+                        </td>
+                    </tr>
+                </table>
             </div>
             <br/>
         </div>
